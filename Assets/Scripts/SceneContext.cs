@@ -8,9 +8,9 @@ public class SceneContext : MonoBehaviour
     [SerializeField] 
     private SceneObject[] ObjectsToInitialize;
     
-    private void Start() //entry point
+    private void Start() //entry point, initialize all the 
     {
-        ConfigProvider.CurrentSpeed = ConfigProvider.StartSpeed;
+        ConfigProvider.ResetSpeed();
         for (int i = 0; i < ObjectsToInitialize.Length; i++)
         {
             ObjectsToInitialize[i].Initialize(ConfigProvider);

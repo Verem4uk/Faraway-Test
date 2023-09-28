@@ -29,17 +29,16 @@ public class EffectPerformer : SceneObject
     {
         if (isEffectActive)
         {
-            // Если текущий эффект активен, проверьте его тип
             if (currentEffect.GetType() == effect.GetType())
             {
-                // Если новый эффект совпадает по типу, продлите время действия
+                // If is the same effect - reset timer
                 effectStartTime = Time.time;
                 return;
             }
-            // Если новый эффект отличается, завершите текущий эффект
+            // If isn't the same effect - finish it
             currentEffect.FinishAction();
         }
-
+        
         currentEffect = effect;
         effect.StartAction();
         effectStartTime = Time.time;

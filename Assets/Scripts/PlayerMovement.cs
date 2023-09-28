@@ -1,19 +1,57 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : SceneObject
 {
-    public float laneChangeSpeed = 5.0f;
-    public float swipeThreshold = 50.0f;
-    public int minLane = 0;
-    public int maxLane = 2;
-    public SwipeDirection swipeDirection = SwipeDirection.None;
+    [SerializeField]
+    private float laneChangeSpeed = 5.0f;
+    
+    [SerializeField]
+    private int minLane = 0;
+    
+    [SerializeField]
+    private int maxLane = 2;
+    
+    [SerializeField]
+    private float laneWidth = 2.0f;
+    
+    private SwipeDirection swipeDirection = SwipeDirection.None;
 
     private int currentLane = 1;
     private int targetLane = 1;
-    private float laneWidth = 2.0f;
     private bool isMoving = false;
+
+    private Animator animator;
+    private int isFlying = Animator.StringToHash("IsFlying");
+
+    public override void Initialize(ConfigProvider configProvider)
+    {
+        base.Initialize(configProvider);
+        configProvider.OnEffectStarted += OnFly;
+        configProvider.OnEffectEnded += OnFlyEnd;
+        animator = GetComponent<Animator>();
+    }
+
+    private void OnFly(Effect effect)
+    {
+        if (effect is FlyEffect)
+        {
+            Vector3 targetPosition = new Vector3(transform.position.x, ConfigProvider.HeightOfFlyCoins,
+                transform.position.z);
+            animator.SetBool(isFlying, true);
+            StartCoroutine(MoveToLane(targetPosition));
+        }
+    }
+
+    private void OnFlyEnd(Effect effect)
+    {
+        if (effect is FlyEffect)
+        {
+            Vector3 targetPosition = new Vector3(transform.position.x, .5f, transform.position.z); 
+            animator.SetBool(isFlying, false);
+            StartCoroutine(MoveToLane(targetPosition));
+        }
+    }
 
     private void Update()
     {
@@ -54,19 +92,12 @@ public class PlayerMovement : MonoBehaviour
         {
             float distanceCovered = Time.time - startTime;
             float fractionOfJourney = distanceCovered / journeyDuration;
-
             transform.position = Vector3.Lerp(transform.position, targetPosition, fractionOfJourney);
-
-            yield return null; // Добавьте эту строку для обновления кадра
+            yield return null; 
         }
 
         transform.position = targetPosition;
         isMoving = false;
-    }
-
-    public void SetSwipeDirection(SwipeDirection direction)
-    {
-        swipeDirection = direction;
     }
 
     public enum SwipeDirection

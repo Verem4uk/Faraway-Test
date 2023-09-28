@@ -32,4 +32,6 @@ public class ConfigProvider : ScriptableObject
     public float FlySeconds = 10;
 
     public Action<Effect> OnEffectStarted;
+    public Action<Effect> OnEffectEnded;
+    public void ResetSpeed() => CurrentSpeed = StartSpeed;
 }
