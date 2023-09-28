@@ -143,6 +143,8 @@ MonoBehaviour:
   laneChangeSpeed: 5
   minLane: 0
   maxLane: 2
+  laneWidth: 2
+  swipeSensivity: 20
 --- !u!1 &150774037
 GameObject:
   m_ObjectHideFlags: 0

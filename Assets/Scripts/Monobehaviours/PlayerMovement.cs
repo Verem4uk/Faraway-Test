@@ -14,12 +14,16 @@ public class PlayerMovement : SceneObject
     
     [SerializeField]
     private float laneWidth = 2.0f;
+
+    [SerializeField]
+    private float swipeSensivity = 25f;
     
     private SwipeDirection swipeDirection = SwipeDirection.None;
 
     private int currentLane = 1;
     private int targetLane = 1;
     private bool isMoving = false;
+    Vector2 touchStart = Vector2.zero;
 
     private Animator animator;
     private int isFlying = Animator.StringToHash("IsFlying");
@@ -57,6 +61,8 @@ public class PlayerMovement : SceneObject
     {
         if (!isMoving)
         {
+            swipeDirection = GetSwipeDirection();
+            
             if (Input.GetKeyDown(KeyCode.LeftArrow) || swipeDirection == SwipeDirection.Left)
             {
                 MoveLane(-1);
@@ -66,6 +72,7 @@ public class PlayerMovement : SceneObject
                 MoveLane(1);
             }
         }
+
     }
 
     private void MoveLane(int direction)
@@ -74,8 +81,7 @@ public class PlayerMovement : SceneObject
 
         if (targetLane != currentLane)
         {
-            float laneOffset = (targetLane - currentLane) * laneWidth;
-            Vector3 targetPosition = transform.position + new Vector3(laneOffset, 0, 0);
+            Vector3 targetPosition = transform.position + new Vector3(direction * laneWidth, 0, 0);
             StartCoroutine(MoveToLane(targetPosition));
             currentLane = targetLane;
         }
@@ -98,6 +104,36 @@ public class PlayerMovement : SceneObject
 
         transform.position = targetPosition;
         isMoving = false;
+    }
+    
+    private SwipeDirection GetSwipeDirection()
+    {
+        Vector2 touchEnd = Vector2.zero;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            touchStart = Input.mousePosition;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            touchEnd = Input.mousePosition;
+            Vector2 swipeDirection = touchEnd - touchStart;
+
+            if (swipeDirection.magnitude >= swipeSensivity)
+            {
+                if (swipeDirection.x > 0)
+                {
+                    return SwipeDirection.Right;
+                }
+
+                if (swipeDirection.x < 0)
+                {
+                    return SwipeDirection.Left;
+                }
+            }
+        }
+        
+        return SwipeDirection.None;
     }
 
     public enum SwipeDirection

@@ -8,19 +8,13 @@ public abstract class Effect
     }
     public abstract void StartAction();
 
-    public virtual void FinishAction()
-    {
-        ConfigProvider.OnEffectEnded?.Invoke(this);
-    }
+    public virtual void FinishAction() => ConfigProvider.OnEffectEnded?.Invoke(this);
 
     public abstract float GetTimeInSeconds();
 }
 public class SpeedUpEffect : Effect
 {
-    public override void StartAction()
-    {
-        ConfigProvider.CurrentSpeed *= ConfigProvider.SpeedUpMultiplier;
-    }
+    public override void StartAction() => ConfigProvider.CurrentSpeed *= ConfigProvider.SpeedUpMultiplier;
 
     public override void FinishAction()
     {
