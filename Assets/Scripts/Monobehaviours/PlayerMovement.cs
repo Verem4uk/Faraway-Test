@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerMovement : SceneObject
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     private float laneChangeSpeed = 5.0f;
@@ -24,38 +24,6 @@ public class PlayerMovement : SceneObject
     private int targetLane = 1;
     private bool isMoving = false;
     Vector2 touchStart = Vector2.zero;
-
-    private Animator animator;
-    private int isFlying = Animator.StringToHash("IsFlying");
-
-    public override void Initialize(ConfigProvider configProvider)
-    {
-        base.Initialize(configProvider);
-        configProvider.OnEffectStarted += OnFly;
-        configProvider.OnEffectEnded += OnFlyEnd;
-        animator = GetComponent<Animator>();
-    }
-
-    private void OnFly(Effect effect)
-    {
-        if (effect is FlyEffect)
-        {
-            Vector3 targetPosition = new Vector3(transform.position.x, ConfigProvider.HeightOfFlyCoins,
-                transform.position.z);
-            animator.SetBool(isFlying, true);
-            StartCoroutine(MoveToLane(targetPosition));
-        }
-    }
-
-    private void OnFlyEnd(Effect effect)
-    {
-        if (effect is FlyEffect)
-        {
-            Vector3 targetPosition = new Vector3(transform.position.x, .5f, transform.position.z); 
-            animator.SetBool(isFlying, false);
-            StartCoroutine(MoveToLane(targetPosition));
-        }
-    }
 
     private void Update()
     {
@@ -104,6 +72,11 @@ public class PlayerMovement : SceneObject
 
         transform.position = targetPosition;
         isMoving = false;
+    }
+
+    public void MovePlayerTo(Vector3 targetPosition)
+    {
+        StartCoroutine(MoveToLane(targetPosition));
     }
     
     private SwipeDirection GetSwipeDirection()

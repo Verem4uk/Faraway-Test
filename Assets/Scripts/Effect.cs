@@ -1,5 +1,8 @@
+using Zenject;
+
 public abstract class Effect
 {
+    [Inject]
     protected ConfigProvider ConfigProvider;
     public void Apply(ConfigProvider configProvider)
     {

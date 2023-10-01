@@ -1,15 +1,18 @@
 using UnityEngine;
+using Zenject;
 
-public class EffectPerformer : SceneObject
+public class EffectPerformer : MonoBehaviour
 {
     private Effect currentEffect;
     private float effectStartTime;
     private bool isEffectActive;
 
-    public override void Initialize(ConfigProvider configProvider)
+    [Inject]
+    private ConfigProvider ConfigProvider;
+
+    private void Start()
     {
-        base.Initialize(configProvider);
-        configProvider.OnEffectStarted = PerformEffect;
+        ConfigProvider.OnEffectStarted += PerformEffect;
     }
 
     private void Update()

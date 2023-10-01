@@ -145,6 +145,19 @@ MonoBehaviour:
   maxLane: 2
   laneWidth: 2
   swipeSensivity: 20
+--- !u!114 &71285433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71285431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e5c0dbb5eaf744faaeccb2edf4fe9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 71285432}
 --- !u!1 &150774037
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,6 +497,7 @@ MonoBehaviour:
   LeftSpawnPoint: {fileID: 543810692}
   RightSpawnPoint: {fileID: 466016516}
   MiddleSpawnPoint: {fileID: 1966370688}
+  Zenjector: {fileID: 1491876398}
 --- !u!4 &542374164
 Transform:
   m_ObjectHideFlags: 0
@@ -814,6 +828,7 @@ GameObject:
   - component: {fileID: 1491876397}
   - component: {fileID: 1491876396}
   - component: {fileID: 1491876395}
+  - component: {fileID: 1491876398}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -846,11 +861,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConfigProvider: {fileID: 11400000, guid: cedaf810e6345134492dc09d60f6963d, type: 2}
-  ObjectsToInitialize:
-  - {fileID: 1831936929}
-  - {fileID: 542374163}
-  - {fileID: 1491876395}
-  - {fileID: 71285432}
 --- !u!4 &1491876397
 Transform:
   m_ObjectHideFlags: 0
@@ -865,6 +875,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1491876398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491876394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers:
+  - {fileID: 11400000, guid: f45b97f639f27b84b878d1c3d7dc4836, type: 2}
+  _monoInstallers: []
+  _installerPrefabs: []
+  _autoRun: 1
+  OnPreInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPreResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  _parentNewObjectsUnderSceneContext: 0
+  _contractNames: []
+  _parentContractNames: []
 --- !u!1 &1831936927
 GameObject:
   m_ObjectHideFlags: 0

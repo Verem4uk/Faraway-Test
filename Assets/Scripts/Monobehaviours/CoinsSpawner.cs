@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
-public class CoinsSpawner : SceneObject
+public class CoinsSpawner : MonoBehaviour
 {
     [SerializeField]
     private CoinView[] CoinPrefabs;
@@ -16,12 +17,17 @@ public class CoinsSpawner : SceneObject
     
     [SerializeField]
     private Transform MiddleSpawnPoint;
+
+    [SerializeField] 
+    private Context Zenjector;
+   
+    [Inject] 
+    private ConfigProvider ConfigProvider;
     
     private List<CoinView> CoinsPool = new List<CoinView>();
 
-    public override void Initialize(ConfigProvider configProvider)
+    private void Start()
     {
-        base.Initialize(configProvider);
         StartCoroutine(CoroutineSpawner());
     }
 
@@ -34,7 +40,7 @@ public class CoinsSpawner : SceneObject
         
         var randomNumber = Random.Range(0, CoinPrefabs.Length);
         var newCoin = Instantiate(CoinPrefabs[randomNumber], PickUpPosition(), Quaternion.identity);
-        newCoin.Initialize(ConfigProvider);
+        Zenjector.Container.Inject(newCoin);
         CoinsPool.Add(newCoin);
 
         bool TryGetObjectFromPool()

@@ -1,9 +1,13 @@
 using UnityEngine;
+using Zenject;
 
-public class CoinView : SceneObject
+public class CoinView : MonoBehaviour
 {
     [SerializeField]
     private ECoinEffectType CoinEffectType;
+
+    [Inject] 
+    private ConfigProvider ConfigProvider;
     
     private Coin Coin;
 

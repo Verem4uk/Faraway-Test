@@ -1,17 +1,16 @@
 using UnityEngine;
+using Zenject;
 
-public class PlatformsGear : SceneObject
+public class PlatformsGear : MonoBehaviour
 {
     [SerializeField]
     private Transform[] platforms;
+
+    [Inject] 
+    private ConfigProvider ConfigProvider;
     
     private void Update()
     {
-        if (!isInitialized)
-        {
-            return;
-        }
-        
         for (int i = 0; i < platforms.Length; i++)
         {
             platforms[i].localPosition += Vector3.back * ConfigProvider.CurrentSpeed * Time.deltaTime;
