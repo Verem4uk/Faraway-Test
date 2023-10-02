@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: SOInstaller
   m_EditorClassIdentifier: 
   ConfigProvider: {fileID: 11400000, guid: cedaf810e6345134492dc09d60f6963d, type: 2}
+  Effects:
+  - {fileID: 11400000, guid: afa04895c8f0f8541a9ddaae102769fe, type: 2}
+  - {fileID: 11400000, guid: b69b548c93c2ecf4e8bb853f5576aa8c, type: 2}
+  - {fileID: 11400000, guid: fa4118c4e027fb546b1df4a4c6f73359, type: 2}

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4af24c24c2dd7aa42a6d9120c13885b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CoinEffectType: 2
+  Effect: {fileID: 11400000, guid: fa4118c4e027fb546b1df4a4c6f73359, type: 2}
 --- !u!135 &4001950426330889554
 SphereCollider:
   m_ObjectHideFlags: 0

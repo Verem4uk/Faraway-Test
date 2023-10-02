@@ -3,7 +3,6 @@ using Zenject;
 
 public class PlayerFlyEffect : MonoBehaviour
 {
-    [SerializeField]
     private PlayerMovement playerMovement;
 
     private Animator animator;
@@ -17,6 +16,7 @@ public class PlayerFlyEffect : MonoBehaviour
         ConfigProvider.OnEffectStarted += OnFly;
         ConfigProvider.OnEffectEnded += OnFlyEnd;
         animator = GetComponent<Animator>();
+        playerMovement = GetComponent<PlayerMovement>();
     }
     
     

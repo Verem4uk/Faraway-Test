@@ -33,5 +33,10 @@ public class ConfigProvider : ScriptableObject
 
     public Action<Effect> OnEffectStarted;
     public Action<Effect> OnEffectEnded;
-    public void ResetSpeed() => CurrentSpeed = StartSpeed;
+    public void Reset()
+    {
+        CurrentSpeed = StartSpeed;
+        OnEffectEnded = null;
+        OnEffectEnded = null;
+    }
 }

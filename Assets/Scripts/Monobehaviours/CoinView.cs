@@ -4,7 +4,7 @@ using Zenject;
 public class CoinView : MonoBehaviour
 {
     [SerializeField]
-    private ECoinEffectType CoinEffectType;
+    private Effect Effect;
 
     [Inject] 
     private ConfigProvider ConfigProvider;
@@ -13,14 +13,7 @@ public class CoinView : MonoBehaviour
 
     private void Start()
     {
-        var fabric = new CoinsFabric();
-        Coin = CoinEffectType switch
-        {
-            ECoinEffectType.SpeedUp => fabric.GenerateSpeedUpCoin,
-            ECoinEffectType.SpeedDown => fabric.GenerateSpeedDownCoin,
-            ECoinEffectType.Fly => fabric.GenerateFlyCoin,
-            _ => Coin
-        };
+        Coin = new Coin(Effect);
     }
 
     private void Update()
@@ -33,15 +26,8 @@ public class CoinView : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Coin.PickUp(ConfigProvider);
+            Coin.PickUp();
         }
         gameObject.SetActive(false);
-    }
-
-    private enum ECoinEffectType
-    {
-        SpeedUp,
-        SpeedDown,
-        Fly
     }
 }

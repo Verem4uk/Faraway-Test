@@ -1,45 +1,17 @@
+using UnityEngine;
 using Zenject;
 
-public abstract class Effect
+public abstract class Effect : ScriptableObject
 {
     [Inject]
     protected ConfigProvider ConfigProvider;
-    public void Apply(ConfigProvider configProvider)
+    public void Apply()
     {
-        ConfigProvider = configProvider;
-        configProvider.OnEffectStarted?.Invoke(this); 
+        ConfigProvider.OnEffectStarted?.Invoke(this); 
     }
     public abstract void StartAction();
 
     public virtual void FinishAction() => ConfigProvider.OnEffectEnded?.Invoke(this);
 
     public abstract float GetTimeInSeconds();
-}
-public class SpeedUpEffect : Effect
-{
-    public override void StartAction() => ConfigProvider.CurrentSpeed *= ConfigProvider.SpeedUpMultiplier;
-
-    public override void FinishAction()
-    {
-        ConfigProvider.CurrentSpeed /= ConfigProvider.SpeedUpMultiplier;
-        base.FinishAction();
-    }
-    public override float GetTimeInSeconds() => ConfigProvider.SpeedUpSeconds;
-}
-
-public class SpeedDownEffect : Effect
-{
-    public override void StartAction() => ConfigProvider.CurrentSpeed *= ConfigProvider.SpeedDownMultiplier;
-    public override void FinishAction()
-    {
-        ConfigProvider.CurrentSpeed /= ConfigProvider.SpeedDownMultiplier;
-        base.FinishAction();
-    }
-    public override float GetTimeInSeconds() => ConfigProvider.SpeedDownSeconds;
-}
-
-public class FlyEffect : Effect
-{
-    public override void StartAction() {}
-    public override float GetTimeInSeconds() => ConfigProvider.FlySeconds;
 }
