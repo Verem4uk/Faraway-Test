@@ -1,17 +1,43 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
-using Zenject;
 
 public abstract class Effect : ScriptableObject
 {
-    [Inject]
-    protected ConfigProvider ConfigProvider;
-    public void Apply()
+    public Action<Effect> OnEffectStarted;
+    public Action<Effect> OnEffectEnded;
+    
+    protected bool isEffectActive { private set; get; }
+    
+    protected CancellationTokenSource CancellationTokenSource;
+    protected abstract float GetTimeInSeconds();
+    
+    public virtual void Apply()
     {
-        ConfigProvider.OnEffectStarted?.Invoke(this); 
+        OnEffectStarted?.Invoke(this);
+        isEffectActive = true;
+        RunEffect();
     }
-    public abstract void StartAction();
 
-    public virtual void FinishAction() => ConfigProvider.OnEffectEnded?.Invoke(this);
+    protected void RunEffect()
+    {
+        CancellationTokenSource = new CancellationTokenSource();
+        _ = RunEffect(CancellationTokenSource.Token);
+    }
 
-    public abstract float GetTimeInSeconds();
+    public virtual void FinishEffect()
+    {
+        OnEffectEnded?.Invoke(this);
+        isEffectActive = false;
+    }
+
+    private async Task RunEffect(CancellationToken cancellationToken)
+    {
+        await Task.Delay(TimeSpan.FromSeconds(GetTimeInSeconds()), cancellationToken);
+        if (!cancellationToken.IsCancellationRequested)
+        {
+            FinishEffect();
+        }
+    }
 }

@@ -8,6 +8,9 @@ public class CoinsSpawner : MonoBehaviour
 {
     [SerializeField]
     private CoinView[] CoinPrefabs;
+
+    [SerializeField] 
+    private float SpawnFriquency = .5f;
     
     [SerializeField]
     private Transform LeftSpawnPoint;
@@ -20,10 +23,10 @@ public class CoinsSpawner : MonoBehaviour
 
     [SerializeField] 
     private Context Zenjector;
-   
-    [Inject] 
-    private ConfigProvider ConfigProvider;
     
+    [SerializeField] 
+    private FlyEffect FlyEffect;
+   
     private List<CoinView> CoinsPool = new List<CoinView>();
 
     private void Start()
@@ -71,9 +74,9 @@ public class CoinsSpawner : MonoBehaviour
             case 0: return LeftSpawnPoint.position;
             case 1: return RightSpawnPoint.position;
             case 2: return MiddleSpawnPoint.position;
-            case 3: return LeftSpawnPoint.position + Vector3.up * ConfigProvider.HeightOfFlyCoins; 
-            case 4: return RightSpawnPoint.position + Vector3.up * ConfigProvider.HeightOfFlyCoins;
-            case 5: return MiddleSpawnPoint.position + Vector3.up * ConfigProvider.HeightOfFlyCoins;
+            case 3: return LeftSpawnPoint.position + Vector3.up * FlyEffect.HeightOfFlyCoins; 
+            case 4: return RightSpawnPoint.position + Vector3.up * FlyEffect.HeightOfFlyCoins;
+            case 5: return MiddleSpawnPoint.position + Vector3.up * FlyEffect.HeightOfFlyCoins;
         }
         Debug.LogError("Number is out of positions");
         return LeftSpawnPoint.position;
@@ -83,7 +86,7 @@ public class CoinsSpawner : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(ConfigProvider.SpawnFriquency);
+            yield return new WaitForSeconds(SpawnFriquency);
             SpawnCoin();
         }
     }

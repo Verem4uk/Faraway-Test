@@ -7,7 +7,7 @@ public class CoinView : MonoBehaviour
     private Effect Effect;
 
     [Inject] 
-    private ConfigProvider ConfigProvider;
+    private GameDataService DataService;
     
     private Coin Coin;
 
@@ -19,7 +19,7 @@ public class CoinView : MonoBehaviour
     private void Update()
     {
         transform.Rotate(Vector3.up);
-        transform.position += Vector3.back * ConfigProvider.CurrentSpeed * Time.deltaTime;
+        transform.position += Vector3.back * DataService.CurrentSpeed * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)

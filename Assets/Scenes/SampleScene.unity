@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e5c0dbb5eaf744faaeccb2edf4fe9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flyEffect: {fileID: 11400000, guid: fa4118c4e027fb546b1df4a4c6f73359, type: 2}
 --- !u!1 &150774037
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,10 +494,12 @@ MonoBehaviour:
   - {fileID: 4780659311387725305, guid: 4115227f80636a74091aeccfcc1fc476, type: 3}
   - {fileID: 7755602143937140601, guid: 1c023298cedd7cd4da5bca7abf49d553, type: 3}
   - {fileID: 8549217839964751474, guid: 41523479f4c4f714ebfc031f9b9c7f09, type: 3}
+  SpawnFriquency: 0.5
   LeftSpawnPoint: {fileID: 543810692}
   RightSpawnPoint: {fileID: 466016516}
   MiddleSpawnPoint: {fileID: 1966370688}
   Zenjector: {fileID: 1491876398}
+  FlyEffect: {fileID: 11400000, guid: fa4118c4e027fb546b1df4a4c6f73359, type: 2}
 --- !u!4 &542374164
 Transform:
   m_ObjectHideFlags: 0
@@ -825,8 +828,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1491876397}
-  - component: {fileID: 1491876396}
-  - component: {fileID: 1491876395}
   - component: {fileID: 1491876398}
   m_Layer: 0
   m_Name: SceneContext
@@ -835,34 +836,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1491876395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1491876394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bade504a239ebe34f83a4b2acb2c93f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1491876396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1491876394}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6fd92676c843d3478a9f65f8cc6e604, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConfigProvider: {fileID: 11400000, guid: cedaf810e6345134492dc09d60f6963d, type: 2}
-  OnPostResolve:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &1491876397
 Transform:
   m_ObjectHideFlags: 0
