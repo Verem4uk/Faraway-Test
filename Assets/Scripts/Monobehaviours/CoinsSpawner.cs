@@ -21,8 +21,8 @@ public class CoinsSpawner : MonoBehaviour
     [SerializeField]
     private Transform MiddleSpawnPoint;
 
-    [SerializeField] 
-    private Context Zenjector;
+    [Inject] 
+    private DiContainer Container;
     
     [SerializeField] 
     private FlyEffect FlyEffect;
@@ -43,7 +43,7 @@ public class CoinsSpawner : MonoBehaviour
         
         var randomNumber = Random.Range(0, CoinPrefabs.Length);
         var newCoin = Instantiate(CoinPrefabs[randomNumber], PickUpPosition(), Quaternion.identity);
-        Zenjector.Container.Inject(newCoin);
+        Container.Inject(newCoin);
         CoinsPool.Add(newCoin);
 
         bool TryGetObjectFromPool()
