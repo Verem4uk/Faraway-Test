@@ -4,38 +4,38 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float laneChangeSpeed = 5.0f;
+    private float LaneChangeSpeed = 5.0f;
     
     [SerializeField]
-    private int minLane = 0;
+    private int MinLane = 0;
     
     [SerializeField]
-    private int maxLane = 2;
+    private int MaxLane = 2;
     
     [SerializeField]
-    private float laneWidth = 2.0f;
+    private float LaneWidth = 2.0f;
 
     [SerializeField]
-    private float swipeSensivity = 25f;
+    private float SwipeSensivity = 25f;
     
-    private SwipeDirection swipeDirection = SwipeDirection.None;
+    private ESwipeDirection SwipeDirection = ESwipeDirection.None;
 
-    private int currentLane = 1;
-    private int targetLane = 1;
-    private bool isMoving = false;
-    Vector2 touchStart = Vector2.zero;
+    private int CurrentLane = 1;
+    private int TargetLane = 1;
+    private bool IsMoving = false;
+    Vector2 TouchStart = Vector2.zero;
 
     private void Update()
     {
-        if (!isMoving)
+        if (!IsMoving)
         {
-            swipeDirection = GetSwipeDirection();
+            SwipeDirection = GetSwipeDirection();
             
-            if (Input.GetKeyDown(KeyCode.LeftArrow) || swipeDirection == SwipeDirection.Left)
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || SwipeDirection == ESwipeDirection.Left)
             {
                 MoveLane(-1);
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow) || swipeDirection == SwipeDirection.Right)
+            else if (Input.GetKeyDown(KeyCode.RightArrow) || SwipeDirection == ESwipeDirection.Right)
             {
                 MoveLane(1);
             }
@@ -45,22 +45,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveLane(int direction)
     {
-        targetLane = Mathf.Clamp(targetLane + direction, minLane, maxLane);
+        TargetLane = Mathf.Clamp(TargetLane + direction, MinLane, MaxLane);
 
-        if (targetLane != currentLane)
+        if (TargetLane != CurrentLane)
         {
-            Vector3 targetPosition = transform.position + new Vector3(direction * laneWidth, 0, 0);
+            Vector3 targetPosition = transform.position + new Vector3(direction * LaneWidth, 0, 0);
             StartCoroutine(MoveToLane(targetPosition));
-            currentLane = targetLane;
+            CurrentLane = TargetLane;
         }
     }
 
     private IEnumerator MoveToLane(Vector3 targetPosition)
     {
-        isMoving = true;
+        IsMoving = true;
         float journeyLength = Vector3.Distance(transform.position, targetPosition);
         float startTime = Time.time;
-        float journeyDuration = journeyLength / laneChangeSpeed;
+        float journeyDuration = journeyLength / LaneChangeSpeed;
 
         while (Time.time - startTime < journeyDuration)
         {
@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         transform.position = targetPosition;
-        isMoving = false;
+        IsMoving = false;
     }
 
     public void MovePlayerTo(Vector3 targetPosition)
@@ -79,37 +79,37 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(MoveToLane(targetPosition));
     }
     
-    private SwipeDirection GetSwipeDirection()
+    private ESwipeDirection GetSwipeDirection()
     {
         Vector2 touchEnd = Vector2.zero;
 
         if (Input.GetMouseButtonDown(0))
         {
-            touchStart = Input.mousePosition;
+            TouchStart = Input.mousePosition;
         }
         else if (Input.GetMouseButtonUp(0))
         {
             touchEnd = Input.mousePosition;
-            Vector2 swipeDirection = touchEnd - touchStart;
+            Vector2 swipeDirection = touchEnd - TouchStart;
 
-            if (swipeDirection.magnitude >= swipeSensivity)
+            if (swipeDirection.magnitude >= SwipeSensivity)
             {
                 if (swipeDirection.x > 0)
                 {
-                    return SwipeDirection.Right;
+                    return ESwipeDirection.Right;
                 }
 
                 if (swipeDirection.x < 0)
                 {
-                    return SwipeDirection.Left;
+                    return ESwipeDirection.Left;
                 }
             }
         }
         
-        return SwipeDirection.None;
+        return ESwipeDirection.None;
     }
 
-    public enum SwipeDirection
+    public enum ESwipeDirection
     {
         None,
         Left,

@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe8c873456e2f34ab2ee145c0a8bf15, type: 3}
   m_Name: SOInstaller
   m_EditorClassIdentifier: 
-  Effects: []
+  Effects:
+  - {fileID: 11400000, guid: afa04895c8f0f8541a9ddaae102769fe, type: 2}
+  - {fileID: 11400000, guid: 61f2767c16e23e841a00060703184c78, type: 2}
+  - {fileID: 11400000, guid: fa4118c4e027fb546b1df4a4c6f73359, type: 2}

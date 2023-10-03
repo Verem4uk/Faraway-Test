@@ -8,7 +8,7 @@ public abstract class Effect : ScriptableObject
     public Action<Effect> OnEffectStarted;
     public Action<Effect> OnEffectEnded;
     
-    protected bool isEffectActive { private set; get; }
+    protected bool IsEffectActive { private set; get; }
     
     protected CancellationTokenSource CancellationTokenSource;
     protected abstract float GetTimeInSeconds();
@@ -16,7 +16,7 @@ public abstract class Effect : ScriptableObject
     public virtual void Apply()
     {
         OnEffectStarted?.Invoke(this);
-        isEffectActive = true;
+        IsEffectActive = true;
         RunEffect();
     }
 
@@ -29,7 +29,7 @@ public abstract class Effect : ScriptableObject
     public virtual void FinishEffect()
     {
         OnEffectEnded?.Invoke(this);
-        isEffectActive = false;
+        IsEffectActive = false;
     }
 
     private async Task RunEffect(CancellationToken cancellationToken)

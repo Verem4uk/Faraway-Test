@@ -140,11 +140,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad7a753a3308ff54ca7a8d5ab3e68abe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laneChangeSpeed: 5
-  minLane: 0
-  maxLane: 2
-  laneWidth: 2
-  swipeSensivity: 20
+  LaneChangeSpeed: 5
+  MinLane: 0
+  MaxLane: 2
+  LaneWidth: 2
+  SwipeSensivity: 25
 --- !u!114 &71285433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e5c0dbb5eaf744faaeccb2edf4fe9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flyEffect: {fileID: 11400000, guid: fa4118c4e027fb546b1df4a4c6f73359, type: 2}
+  FlyEffect: {fileID: 0}
 --- !u!1 &150774037
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,7 +498,6 @@ MonoBehaviour:
   LeftSpawnPoint: {fileID: 543810692}
   RightSpawnPoint: {fileID: 466016516}
   MiddleSpawnPoint: {fileID: 1966370688}
-  Zenjector: {fileID: 1491876398}
   FlyEffect: {fileID: 11400000, guid: fa4118c4e027fb546b1df4a4c6f73359, type: 2}
 --- !u!4 &542374164
 Transform:
@@ -927,7 +926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fe24c473ee22354b81e83a5da429144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platforms:
+  Platforms:
   - {fileID: 150774038}
   - {fileID: 979665454}
 --- !u!1 &1966370687

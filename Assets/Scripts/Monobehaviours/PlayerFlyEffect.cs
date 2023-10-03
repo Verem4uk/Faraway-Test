@@ -2,34 +2,38 @@ using UnityEngine;
 
 public class PlayerFlyEffect : MonoBehaviour
 {
-    private PlayerMovement playerMovement;
-
-    private Animator animator;
-    private int isFlying = Animator.StringToHash("IsFlying");
+    private PlayerMovement PlayerMovement;
+    private Animator Animator;
+    private int IsFlying = Animator.StringToHash("IsFlying");
     
     [SerializeField] 
-    private FlyEffect flyEffect;
+    private FlyEffect FlyEffect;
     
     private void Start()
     {
-        flyEffect.OnEffectStarted += OnFly;
-        flyEffect.OnEffectEnded += OnFlyEnd;
-        animator = GetComponent<Animator>();
-        playerMovement = GetComponent<PlayerMovement>();
+        FlyEffect.OnEffectStarted += OnFly;
+        FlyEffect.OnEffectEnded += OnFlyEnd;
+        Animator = GetComponent<Animator>();
+        PlayerMovement = GetComponent<PlayerMovement>();
     }
 
     private void OnFly(Effect effect)
     {
-        Vector3 targetPosition = new Vector3(transform.position.x, flyEffect.HeightOfFlyCoins,
-            transform.position.z);
-        playerMovement.MovePlayerTo(targetPosition);
-        animator.SetBool(isFlying, true);
+        Vector3 targetPosition = new Vector3(transform.position.x, FlyEffect.HeightOfFlyCoins, transform.position.z);
+        PlayerMovement.MovePlayerTo(targetPosition);
+        Animator.SetBool(IsFlying, true);
     }
 
     private void OnFlyEnd(Effect effect)
     {
         Vector3 targetPosition = new Vector3(transform.position.x, .5f, transform.position.z);
-        playerMovement.MovePlayerTo(targetPosition);
-        animator.SetBool(isFlying, false);
+        PlayerMovement.MovePlayerTo(targetPosition);
+        Animator.SetBool(IsFlying, false);
+    }
+
+    private void OnDisable()
+    {
+        FlyEffect.OnEffectStarted -= OnFly;
+        FlyEffect.OnEffectEnded -= OnFlyEnd;
     }
 }

@@ -11,7 +11,7 @@ public class FlyEffect : Effect
     
     public override void Apply()
     {
-        if (isEffectActive)
+        if (IsEffectActive)
         {
             CancellationTokenSource.Cancel();
             RunEffect();
